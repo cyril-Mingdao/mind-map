@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 邏輯心智圖大綱生成系統 (V1.6)</title>
+    <title>AI 邏輯心智圖大綱生成系統 (V1.7)</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
     <style>
         :root {
@@ -69,6 +69,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         label { font-weight: bold; color: var(--primary-color); }
         
@@ -156,6 +158,10 @@
             font-weight: normal;
         }
 
+        .example-btn-group {
+            display: flex;
+            gap: 5px;
+        }
         .example-btn {
             background-color: #607d8b;
             color: white;
@@ -172,7 +178,7 @@
 <body>
 
     <div class="header-container">
-        <h1>AI 邏輯心智圖大綱生成器 (V1.6)</h1>
+        <h1>AI 邏輯心智圖大綱生成器 (V1.7)</h1>
         <p class="subtitle">詹宗龍 製作</p>
     </div>
 
@@ -222,7 +228,10 @@
         <div class="form-group">
             <div class="label-group">
                 <label for="sourceText">📄 請貼上原始文章或課文內容：</label>
-                <button type="button" class="example-btn" onclick="loadExample()">💡 載入範例文字 (阿媽的情批)</button>
+                <div class="example-btn-group">
+                    <button type="button" class="example-btn" onclick="loadExample1()">💡 範例1: 無字的情批</button>
+                    <button type="button" class="example-btn" onclick="loadExample2()">💡 範例2: Art of Listening</button>
+                </div>
             </div>
             <textarea id="sourceText" placeholder="請將長文或課文貼在此處..."></textarea>
         </div>
@@ -308,7 +317,7 @@
             msg.style.color = "orange";
         }
 
-        function loadExample() {
+        function loadExample1() {
             const exampleText = `阿媽毋捌字，
 但是伊捌真濟的代誌；
 伊講閃電是天的鎖匙，
@@ -329,6 +338,11 @@
 「阿媽的情批是寫啥物？」
 伊講：「情人欲愛無勇氣，才來用字騙情義。」
 伊講：「情人欲愛無勇氣，才來用字騙分開。」`;
+            document.getElementById('sourceText').value = exampleText;
+        }
+
+        function loadExample2() {
+            const exampleText = `Genuine listening extends beyond merely hearing words—it requires full attention and empathy. When we truly listen, we observe body language, notice emotional undertones, and resist the urge to interrupt or formulate responses while others speak. Psychologists distinguish between hearing, which is passive, and active listening, which involves asking clarifying questions and reflecting back what we've understood. Mastering this skill transforms relationships and resolves conflicts more effectively than any persuasive argument.`;
             document.getElementById('sourceText').value = exampleText;
         }
 
@@ -361,7 +375,6 @@
             status.style.backgroundColor = "#e3f2fd";
             status.style.color = "#0277bd";
 
-            // 台語智慧偵測指令
             const prompt = `
 角色設定：
 你是一位專業的資訊架構師與思維導圖專家，擅長將複雜的長文萃取成結構清晰、邏輯嚴密的心智圖大綱。
@@ -369,22 +382,23 @@
 任務目標：
 1. 請閱讀以下提供的文章或課文，並將其轉化為心智圖結構。
 2. 偏好模式：${mode}
-3. 【語言智慧偵測】：請偵測輸入的文章語言。若輸入的文章包含「臺灣台語（Taigi）」詞彙（例如：毋捌、代誌、情批、啥物等），輸出之心智圖大綱「所有層級」皆必須嚴格使用「教育部臺灣台語推薦用字」書寫。若為一般華語文章，則使用繁體中文書寫。
+3. 【語言智慧偵測】：請偵測輸入的文章語言。若輸入的文章包含「臺灣台語（Taigi）」詞彙，輸出之心智圖大綱「所有層級」皆必須嚴格使用「教育部臺灣台語推薦用字」書寫。若為華語或英語文章，則使用相對應的語言書寫。
 
 層次結構規範（嚴格遵守）：
 1. 格式採用：
-   一、 中心主題 (標題 1)
-   (一) 一級分支 (標題 2)
-   1. 二級分支 (標題 3)
-   (1) 三級分支 (標題 4)
+   〔核心〕 中心主題
+   一、 一級分支
+   (一) 二級分支
+   1. 三級分支
+   (1) 四級分支 (此層級直接列出文本的關聯句子)
 
 2. 內容規範：
    - 【中心主題】：請下一個 5 字以內的精煉標題。
-   - 【一級與二級分支】：嚴禁長句。請濃縮為「名詞 + 動詞」或單一「關鍵詞」，節點限制在 6 個字以內。
-   - 【三級分支】：此層級請「直接列出課文中的句子」，不需縮減，以利保留原文精華。
+   - 【一級、二級、三級分支】：嚴禁長句。請濃縮為「名詞 + 動詞」或單一「關鍵詞」，節點限制在 6 個字以內。
+   - 【四級分支】：此層級請「直接列出文本中的關聯句子」，不需縮減，以利保留原文精華。
 
 3. 邏輯要求：
-   - 一級分支必須控制在 5 個以內。
+   - 一級分支必須控制在 6 個以內。
    - 符合 MECE 原則（互斥且窮盡）。
 
 ---
@@ -446,7 +460,7 @@ ${sourceText}
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `Mindmap_Outline_V1.6.txt`;
+            a.download = `Mindmap_Outline_V1.7.txt`;
             a.click();
         }
     </script>
