@@ -34,13 +34,12 @@
         h1 { color: var(--primary-color); margin: 0; }
         .subtitle { color: #666; font-size: 1.1rem; font-weight: bold; margin-top: 5px; }
 
-        /* 設定區塊改為內嵌摺疊式 */
         #settings-section {
             background: #e8eaf6;
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 20px;
-            display: block; /* 預設展開，方便初次使用 */
+            display: block; 
             border: 1px solid #c5cae9;
         }
         .settings-toggle {
@@ -93,7 +92,6 @@
         .btn:hover { background-color: #283593; transform: translateY(-2px); }
         .btn:disabled { background-color: #ccc; cursor: not-allowed; }
 
-        /* 輸出區域 */
         .output-container {
             margin-top: 30px;
             display: none;
@@ -146,7 +144,6 @@
             flex-wrap: wrap;
         }
 
-        /* 狀態訊息樣式 */
         .msg-area {
             font-size: 0.9rem;
             margin-top: 5px;
@@ -227,16 +224,23 @@
     </div>
 
     <script>
-        // 初始化載入
         window.onload = () => {
             const savedKey = localStorage.getItem('mindmap_api_key');
             const savedModel = localStorage.getItem('mindmap_model');
             if (savedKey) {
                 document.getElementById('apiKey').value = savedKey;
                 if (savedModel) document.getElementById('modelSelect').value = savedModel;
-                // 若已有 Key，隱藏設定區以維持畫面整潔
                 document.getElementById('settings-section').style.display = 'none';
             }
+
+            // 監聽 Enter 鍵觸發生成功能
+            document.addEventListener('keydown', function(event) {
+                // 判斷是否為 Enter 鍵，且不是在文字輸入區域 (textarea) 換行
+                if (event.key === 'Enter' && event.target.tagName !== 'TEXTAREA') {
+                    event.preventDefault(); // 防止預設行為
+                    generateMindMap();
+                }
+            });
         }
 
         function toggleSettings() {
@@ -291,6 +295,8 @@
             const btn = document.getElementById('generateBtn');
             const status = document.getElementById('status');
             
+            if (btn.disabled) return; // 防止重複點擊
+
             btn.disabled = true;
             btn.innerText = "🧠 正在進行深度結構化分析...";
             status.style.display = "block";
