@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <!--
   【著作權聲明】
-  AI 邏輯心智圖大綱生成系統 (V1.9) — 台語教學網頁
+  AI 邏輯心智圖大綱生成系統 (V1.10) — 台語教學網頁
   Copyright © 2026 詹宗龍（臺中明道中學）. All rights reserved.
   【引用來源】
   台語用字與拼音參考中華民國教育部《臺灣台語常用詞辭典》，其著作權屬教育部。
   本網頁之程式碼、版面與教案設計著作權屬詹宗龍所有，僅供非營利之教育教學使用；前述引用之他人作品，著作權仍屬各原權利人。
   未經著作權人書面授權，不得重製、改作、散布或修改本網頁之全部或一部分。
 -->
-<!-- V1.9：標題與說明依語意斷行，避免單字落行（V1.8 起為黑黃白美編版）。原註：全面美編排版（黑黃白主視覺），功能與 V1.7 相同 -->
+<!-- V1.10：校名統一為「臺中明道中學」。V1.9：標題與說明依語意斷行，避免單字落行（V1.8 起為黑黃白美編版）。原註：全面美編排版（黑黃白主視覺），功能與 V1.7 相同 -->
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -16,7 +16,7 @@
     <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#111111">
-    <title>AI 邏輯心智圖大綱生成系統 (V1.9)</title>
+    <title>AI 邏輯心智圖大綱生成系統 (V1.10)</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -428,7 +428,7 @@
             <div class="brand-mark" aria-hidden="true">🧠</div>
             <div class="brand-text">
                 <span class="brand-title">AI 邏輯心智圖大綱生成器</span>
-                <span class="brand-sub">詹宗龍 製作</span>
+                <span class="brand-sub">臺中明道中學 詹宗龍 製作</span>
             </div>
             <div class="spacer"></div>
             <button class="btn-ghost" onclick="toggleSettings()">⚙️ 系統設定</button>
@@ -436,10 +436,10 @@
     </header>
 
     <section class="hero">
-        <span class="eyebrow">長文 → 心智圖大綱 <span class="ver">V1.9</span></span>
+        <span class="eyebrow">長文 → 心智圖大綱 <span class="ver">V1.10</span></span>
         <h1><span class="ph">AI 邏輯<span class="hl">心智圖</span></span><span class="ph">大綱生成器</span></h1>
         <p class="lead"><span class="ph">貼上文章或課文，</span><span class="ph">AI 依 MECE 原則萃取出</span><span class="ph">層次分明的心智圖大綱；</span><span class="ph">台語文章自動採用教育部推薦用字。</span></p>
-        <p class="byline">詹宗龍 製作</p>
+        <p class="byline">臺中明道中學 詹宗龍 製作</p>
     </section>
 
     <main class="wrap">
@@ -734,7 +734,7 @@ ${sourceText}
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `Mindmap_Outline_V1.9.txt`;
+            a.download = `Mindmap_Outline_V1.10.txt`;
             a.click();
         }
     </script>
